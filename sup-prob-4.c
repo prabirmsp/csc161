@@ -1,3 +1,9 @@
+/* 
+CITATION
+http://www.tutorialspoint.com/c_standard_library/c_function_strcmp.htm
+*/
+
+
 #include <stdio.h>
 
 #define MAX_STR 100
