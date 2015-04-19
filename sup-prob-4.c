@@ -5,14 +5,17 @@ http://www.tutorialspoint.com/c_standard_library/c_function_strcmp.htm
 
 
 #include <stdio.h>
+#include <ctype.h> 
+#include <string.h>
+#include <stdlib.h>
 
 #define MAX_STR 100
-#define maxBooks 5
+#define MAX_BOOKS 5
 
 struct item {
 	char name [MAX_STR];
 	int numBooks;
-	char booksBorrowed [maxBooks] [MAX_STR];
+	char booksBorrowed [MAX_BOOKS] [MAX_STR];
 	char dueDate [MAX_STR];
 	struct item * next;
 };
@@ -105,20 +108,20 @@ void checkout (struct item ** first) {
 	}
 	if (currentP && !strcmp(username, currentP->name)) { // if existing user found
 			printf("Existing user found with %d books checked out.\n"
-				   "Return all books to check out more books.\n");
+				   "Return all books to check out more books.\n", currentP->numBooks);
 	}
 	else { // if no existing user found - create new user
-		printf("Number of books to check out (1-%d): ", maxBooks);
+		printf("Number of books to check out (1-%d): ", MAX_BOOKS);
 		int books;
 		scanf("%d", &books);
 		while (getchar() != '\n'); // clear input stream until newline
-		if (books > 0 && books <= maxBooks) {
+		if (books > 0 && books <= MAX_BOOKS) {
 			struct item * newItem = (struct item *) malloc(sizeof(struct item)); // create new item
 			strcpy(newItem->name, username); // set the name
 			newItem->numBooks = books; // set number of books checked out
 			for (int i = 0; i < books; i++) { // set book titles
 				printf("Title of book %d: ", i+1);
-				getStringInput(&(newItem->booksBorrowed[i]));
+				getStringInput(newItem->booksBorrowed[i]);
 			}
 			printf("Enter due date: ");
 			getStringInput(newItem->dueDate); // set due date
@@ -164,7 +167,7 @@ void search (struct item ** first) {
 	printf("Username: ");
 	getStringInput(username);
 	currentP = *first;
-	previousP1 = first;
+	previousP1 = (struct item *) *first;
 	// search for the user in the list
 	while (currentP && strcmp(username, currentP->name)) {
 		// move to next item
