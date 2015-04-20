@@ -157,7 +157,7 @@ void addName(struct node ** firstPtr) {
 */
 
   char oldName [strMax];
-  struct node * newNode = (struct node *)malloc(sizeof(struct node));
+  struct node * newNode = (struct node *) malloc(sizeof(struct node));
   struct node * listPtr;
   struct node * prevPtr;
 
